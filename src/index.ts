@@ -1,39 +1,28 @@
-import express from "express"
-const app = express();
-// const logger = require("morgan");
-const port = 8000;
+import express from "express";
+import { APPCONFIGS } from "./configs";
+import routes from "./routes";
 
-// app.use(logger("dev"));
-
-app.get("/", function (req, res) {
-    res.send("Hello New World!");
-});
-// About page route
-app.get("/about", function (req, res) {
-    res.send("About this wiki");
-});
-
-
-app.listen(port, function () {
-    console.log(`Example app listening on port ${port}!`);
-});
-
-class Server{
+class Server {
     public app: express.Application;
+
     constructor() {
-        this.app = express();// same as line 2
+        this.app = express();
         this.config();
     }
-    public config() {
-        this.app.set("port", port);
-        app.get("/", function (req, res) {
-        res.send("Hello New World!");
-});
+
+    public config(): void {
+        this.app.set("port", APPCONFIGS.PORT);
+
+        routes(this.app);
     }
-    public start:void {
-        app.listen(port, function () {
-        console.log(`Example app listening on port ${port}!`);
-});
+
+    public start(): void {
+        this.app.listen(this.app.get("port"), () => {
+            console.log("Server listening in port", APPCONFIGS.PORT);
+
+        });
     }
-    
 }
+
+const server = new Server();
+server.start();
