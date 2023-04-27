@@ -1,3 +1,5 @@
+import { Health } from "../../types";
+import { HealthController } from "../../contollers";
 import express from "express";
 
 export default class HealthRoutes {
@@ -9,11 +11,11 @@ export default class HealthRoutes {
     }
 
     protected registerRoutes(): void {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         this.router.get("/", async (_req, res, _next) => {
             try {
-                res.send({ msg: "pong" })
-                /// TODO: After authentication, we will do a message handler utility.
+                const healthController = new HealthController();
+                let result: Health = healthController.getHealth()
+                res.send(result)
             } catch (e) {
                 res.status(500).send({ error: "unknown Error" });
             }
