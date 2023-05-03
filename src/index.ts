@@ -1,5 +1,7 @@
 import express from "express";
 import { APPCONFIGS } from "./configs";
+import cors from 'cors';
+import bodyParser from 'body-parser';
 import routes from "./routes";
 
 class Server {
