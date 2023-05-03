@@ -18,9 +18,8 @@ class AuthController {
 
   getUserByEmail(req, res) {
     const { email } = req.query;
-    const isVerify = Number(req.query.is_verify) >= 0;
+    const isVerify = Number(req.query.is_verify) > 0;
 
-    // Insert logic here to query user data from a database, etc.
     // For this example, we'll just return a dummy user object.
 
     if (email === 'test@gmail.com') {
