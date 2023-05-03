@@ -1,3 +1,4 @@
 import { HealthSevice } from "./health";
+import { AuthService } from "./auth"
 
-export { HealthSevice }
+export { HealthSevice, AuthService }
