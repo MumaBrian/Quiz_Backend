@@ -1,6 +1,6 @@
 import { HealthSevice } from "./health";
+import { AuthService } from "./auth"
 
-export { HealthSevice }
+export { HealthSevice, AuthService }
 
-// import { AuthService } from "./auth";
-// export {AuthService}
+
