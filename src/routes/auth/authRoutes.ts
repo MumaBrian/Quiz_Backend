@@ -1,3 +1,5 @@
+import { AuthController } from "../../contollers";
+import { User } from "../../types";
 import express from "express";
 import {AuthController }from '../../contollers'
 export default class AuthRoutes {
@@ -10,8 +12,25 @@ export default class AuthRoutes {
     this.registerRoutes();
   }
     protected registerRoutes(): void {
-        this.router.post('/', this.authController.login);
-        this.router.post('/login', this.authController.getUserByEmail);
+
+        this.router.post("/login", async (req, res, _next) => {
+            try {
+                const user: User | undefined = req.body;
+                const isVerify: string | undefined = req.query.is_verified;
+
+                if (user === undefined) {
+                    return res.status(400).send({ error: "Incorrect inputs." });
+                }
+                const result: User | undefined = new AuthController().login(user, isVerify)
+
+                if (result === undefined) {
+                    return res.status(400).send({ error: "This user doesn't exist" });
+                }
+                return res.send({ user: user })
+            } catch (e) {
+                res.status(500).send({ error: "unknown Error" });
+            }
+        });
 
         this.router.get("/register", async (_req, res, _next) => {
             try {

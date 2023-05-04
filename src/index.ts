@@ -14,6 +14,7 @@ class Server {
 
     public config(): void {
         this.app.set("port", APPCONFIGS.PORT);
+        this.app.use(express.json());
 
         routes(this.app);
     }
