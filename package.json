@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --legacy-watch"
+    "predev": "npm run swagger",
+    "dev": "nodemon --legacy-watch",
+    "swagger": "tsoa spec"
   },
   "author": "Camsol Training",
   "license": "ISC",
@@ -18,6 +20,8 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
-    "ts-node": "^10.9.1"
+    "swagger-ui-express": "^4.6.3",
+    "ts-node": "^10.9.1",
+    "tsoa": "^5.1.1"
   }
 }

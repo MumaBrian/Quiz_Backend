@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@*": ["*"]
+    },
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./build",
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": false
+  },
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "ignore",
+  "spec": {
+    "outputDirectory": "public",
+    "specVersion": 3
+  },
+  "routes": {
+    "routesDir": "build"
+  }
+}

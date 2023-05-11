@@ -1,3 +1,3 @@
 import { HealthController } from "./health";
-
-export { HealthController }
+import { AuthController } from "./auth";
+export { HealthController,AuthController }
