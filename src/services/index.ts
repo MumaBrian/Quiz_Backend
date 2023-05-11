@@ -1,3 +1,3 @@
 import { HealthSevice } from "./health";
 
-export { HealthSevice }
+export { HealthSevice };
