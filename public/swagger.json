@@ -43,6 +43,13 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/Health"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"msg": "pong"
+										}
+									}
 								}
 							}
 						}

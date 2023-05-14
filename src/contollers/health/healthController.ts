@@ -8,13 +8,12 @@ export default class HealthController {
   /**
    * Test if API is available
    */
-//   @Example<Health>({
-//     msg: "pong",
-//   })
+  @Example<Health>({
+    msg: "pong",
+  })
   @Get("/health")
   public getHealth(): Health {
     const result = new HealthSevice().getHealth();
-    console.log(`---------------${result}`);
     return result;
   }
 }

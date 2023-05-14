@@ -1,7 +1,6 @@
 import { Health } from "../../types";
 import { HealthController } from "../../contollers";
 import express from "express";
-import { Route, Post, Controller } from "tsoa";
 
 // @Route("health")
 export default class HealthRoutes {
