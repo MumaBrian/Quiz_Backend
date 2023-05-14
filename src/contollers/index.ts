@@ -1,2 +1,2 @@
 import { HealthController } from "./health";
-export { HealthController }
+export { HealthController };

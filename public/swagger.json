@@ -12,9 +12,7 @@
 						"type": "string"
 					}
 				},
-				"required": [
-					"msg"
-				],
+				"required": ["msg"],
 				"type": "object",
 				"additionalProperties": true
 			}
@@ -56,9 +54,7 @@
 					}
 				},
 				"description": "Test if API is available",
-				"tags": [
-					"Health Controller Operations"
-				],
+				"tags": ["Health Controller Operations"],
 				"security": [],
 				"parameters": []
 			}

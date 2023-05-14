@@ -1,3 +1,3 @@
 export default interface Health {
-    msg: string;
+	msg: string;
 }
