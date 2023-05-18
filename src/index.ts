@@ -2,6 +2,7 @@ import express from "express";
 import { APPCONFIGS } from "./configs";
 import routes from "./routes";
 import * as swaggerUi from "swagger-ui-express";
+import { firebaseInstance } from "./firebase";
 
 class Server {
 	public app: express.Application;
@@ -14,6 +15,7 @@ class Server {
 		this.app.set("port", APPCONFIGS.PORT);
 		this.app.use(express.json());
 		this.app.use(express.static("public"));
+		firebaseInstance.init();
 		this.app.use(
 			"/docs",
 			swaggerUi.serve,
@@ -23,6 +25,11 @@ class Server {
 				}
 			})
 		);
+
+		// this.app.get('/api/user', async (req, res) => {
+		// 	const user = await new UtilService().getRecord('users', '2sfGGlxqP5gFgAYjcNPq2IQle6D2');
+		// 	res.send(user)
+		// })
 
 		routes(this.app);
 	}
