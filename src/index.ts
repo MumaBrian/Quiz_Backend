@@ -3,7 +3,7 @@ import { APPCONFIGS } from "./configs";
 import routes from "./routes";
 import * as swaggerUi from "swagger-ui-express";
 import { firebaseInstance } from "./firebase";
-import {UtilService} from "./services";
+// import {UtilService} from "./services";
 
 class Server {
 	public app: express.Application;
@@ -32,7 +32,7 @@ class Server {
 		// 	res.send(user)
 		// })
 
-		routes(this.app);
+		// routes(this.app);
 	}
 
 	public start(): void {

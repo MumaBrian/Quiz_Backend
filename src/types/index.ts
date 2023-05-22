@@ -3,7 +3,7 @@ import { Participant } from "./partcipant";
 import { Instructor } from "./instructor";
 import { Category } from "./category";
 import { Admin } from "./admin";
+import { User } from "./user";
 
-import { AdminModel } from "./admin";
 
-export { Health,Participant,Instructor,Category,Admin,AdminModel };
+export { Health,Participant,User,Instructor,Category,Admin };

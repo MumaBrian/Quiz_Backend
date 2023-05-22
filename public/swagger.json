@@ -18,26 +18,22 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"Admin": {
+			"User": {
 				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
 					"name": {
 						"type": "string"
 					},
 					"password": {
 						"type": "string"
+					},
+					"email": {
+						"type": "string"
 					}
 				},
 				"required": [
-					"id",
-					"email",
 					"name",
-					"password"
+					"password",
+					"email"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -87,9 +83,9 @@
 				"parameters": []
 			}
 		},
-		"/api/auth/createAdmin": {
+		"/api/auth/create-admin": {
 			"post": {
-				"operationId": "Create",
+				"operationId": "CreateAdmin",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -112,7 +108,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Admin"
+								"$ref": "#/components/schemas/User"
 							}
 						}
 					}
