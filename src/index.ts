@@ -1,6 +1,5 @@
 import express from "express";
 import { APPCONFIGS } from "./configs";
-import cors from 'cors';
 import bodyParser from 'body-parser';
 import routes from "./routes";
 import * as swaggerUi from "swagger-ui-express";
