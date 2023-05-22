@@ -1,6 +1,6 @@
 import { Health } from "../../types";
 
-export default class HealthSevice {
+export default class HealthService {
 	/**
 	 * Test if API is available
 	 */

@@ -1,5 +1,5 @@
 import { Health } from "../../types";
-import { HealthSevice } from "../../services";
+import { HealthService } from "../../services";
 import { Example, Get, Route, Tags } from "tsoa";
 
 @Route("/api/")
@@ -13,7 +13,7 @@ export default class HealthController {
   })
   @Get("/health")
 	public getHealth(): Health {
-		const result = new HealthSevice().getHealth();
+		const result = new HealthService().getHealth();
 		return result;
 	}
 }
