@@ -1,3 +1,5 @@
+import { AuthController } from "../../contollers";
+import { User } from "../../types";
 import express from "express";
 
 export default class AuthRoutes {
@@ -21,6 +23,18 @@ export default class AuthRoutes {
       try {
         res.send({ msg: "register should be a post method" });
       } catch (e) {
+        res.status(500).send({ error: "unknown Error" });
+      }
+    });
+
+    this.router.post("/register/participant", async (req, res, _next) => {
+      try {
+        const response = await new AuthController().registerParticipant(req.body);
+        res.status(201).send(response);
+        /// TODO: After authentication, we will do a message handler utility.
+      } catch (e) {
+        console.log(e);
+
         res.status(500).send({ error: "unknown Error" });
       }
     });

@@ -3,7 +3,7 @@ export default interface Participant {
   id: string;
   email: string;
   firstName: string;
-  lastname: string;
+  lastName: string;
   password: string;
   phoneNumber: string;
   profilePic?: string;

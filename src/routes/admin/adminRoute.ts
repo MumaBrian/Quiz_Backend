@@ -1,8 +1,18 @@
-// routes/authRoute.ts
-import { AdminController } from "../../contollers";
-import { User } from "../../types";
 import express from "express";
+import { AdminController } from "../../contollers";
+import { Admin } from "../../types";
 
-export default class AuthRoutes {
+export default class AdminRoutes {
+  public router: express.Router;
+
+  constructor() {
+    this.router = express.Router();
+    this.registerRoutes();
+  }
+
+  protected registerRoutes(): void {
+    const adminController = new AdminController();
+
+    this.router.post("/", adminController.createAdmin.bind(adminController));
+  }
 }
-  
