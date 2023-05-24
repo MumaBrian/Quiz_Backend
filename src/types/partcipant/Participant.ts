@@ -1,13 +1,14 @@
-
 export default interface Participant {
-  id: string;
+  DOB?: Date;
+  createdAt?: string;
   email: string;
   firstName: string;
-  lastname: string;
+  id: string;
+  isVerified?: boolean;
+  lastName: string;
+  otp?: string;
   password: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   profilePic?: string;
-  DOB?: Date;
-  createdAt: string;
-  updatedAt: string;
+  updatedAt?: string;
 }

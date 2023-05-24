@@ -1,5 +1,3 @@
-import { firebaseInstance } from "../../firebase";
-import { Admin } from "../../types";
 
 
 
