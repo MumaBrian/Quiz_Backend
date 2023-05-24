@@ -5,9 +5,11 @@ export default interface Participant {
   firstName: string;
   lastName: string;
   password: string;
-  phoneNumber: string;
+  phoneNumber?: string;
+  otp?: string;
   profilePic?: string;
+  isVerified?: boolean;
   DOB?: Date;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
