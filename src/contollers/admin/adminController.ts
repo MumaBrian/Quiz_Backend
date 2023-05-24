@@ -3,21 +3,30 @@ import { AdminService } from "../../services";
 import { Admin } from "../../types";
 
 export default class AdminController {
-  private adminService: AdminService;
 
-  constructor() {
-    this.adminService = new AdminService();
-  }
-
-  async createAdmin(req: Request, res: Response): Promise<void> {
-    try {
-      const admin: Admin = req.body;
-      await this.adminService.createAdminCollection(admin);
-      res
-        .status(201)
-        .json({ message: "Admin collection created successfully." });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to create admin collection." });
-    }
-  }
+	public async createAdmin(req: Request, res: Response) {
+		try {
+			const adminData: Admin = req.body;
+			const createdAdmin = await new AdminService().createAdmin(adminData);
+			res.status(201).json(createdAdmin);
+		} catch (error) {
+			console.error("Error creating admin:", error);
+			res.status(500).json({ error: "Failed to create admin" });
+		}
+	}
+    
+	public async getAdminById(req: Request, res: Response) {
+		try {
+			const adminId: string = req.params.id;
+			const admin = await new AdminService().getAdminById(adminId);
+			if (admin) {
+				res.json(admin);
+			} else {
+				res.status(404).json({ error: "Admin not found" });
+			}
+		} catch (error) {
+			console.error("Error getting admin:", error);
+			res.status(500).json({ error: "Failed to get admin" });
+		}
+	}
 }

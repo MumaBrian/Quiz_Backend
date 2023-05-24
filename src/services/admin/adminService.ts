@@ -1,26 +1,21 @@
 import { firebaseInstance } from "../../firebase";
 import { Admin } from "../../types";
-import { UtilService } from "../../services";
 
 export default class AdminService {
-  private firestoreUtilService: UtilService;
+	private db = firebaseInstance.firestore();
+	private collections = this.db.collection("admins");
 
-  constructor() {
-    this.firestoreUtilService = new UtilService();
-  }
+	public async createAdmin(admin: Admin): Promise<Admin> {
+		const docRef = await this.collections.add(admin);
+		const createdAdmin = { ...admin, id: docRef.id };
+		return createdAdmin;
+	}
 
-  async createAdminCollection(admin: Admin): Promise<void> {
-    const adminCollectionName = "Admin";
-
-    try {
-      await this.firestoreUtilService.createCollection(adminCollectionName);
-
-      // Additional logic to add admin document if needed
-
-      console.log(`Admin collection created successfully.`);
-    } catch (error) {
-      console.error(`Error creating admin collection:`, error);
-      throw error;
-    }
-  }
+	public async getAdminById(id: string): Promise<Admin | null> {
+		const doc = await this.collections.doc(id).get();
+		if (doc.exists) {
+			return { id: doc.id, ...doc.data() } as Admin;
+		}
+		return null;
+	}
 }

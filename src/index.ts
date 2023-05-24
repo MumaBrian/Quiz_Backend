@@ -31,7 +31,7 @@ class Server {
 		// 	res.send(user)
 		// })
 		
-       routes(this.app);
+		routes(this.app);
 	}
 
 	public start(): void {

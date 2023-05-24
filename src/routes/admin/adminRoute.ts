@@ -1,18 +1,13 @@
 import express from "express";
 import { AdminController } from "../../contollers";
-import { Admin } from "../../types";
 
 export default class AdminRoutes {
-  public router: express.Router;
+	router = express.Router();
+	public response =  new AdminController().createAdmin
+	public responseId= new AdminController().getAdminById
+	protected adminRoutes(): void {
+		this.router.get("/admin", this.response)
+		this.router.get("/admin/:id", this.responseId);
 
-  constructor() {
-    this.router = express.Router();
-    this.registerRoutes();
-  }
-
-  protected registerRoutes(): void {
-    const adminController = new AdminController();
-
-    this.router.post("/", adminController.createAdmin.bind(adminController));
-  }
+	}
 }

@@ -1,6 +1,6 @@
 export default interface User {
-    name: string;
-    password: string;
     email: string;
     isVerify?: boolean;
+    name: string;
+    password: string;
 }

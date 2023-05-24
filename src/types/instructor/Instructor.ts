@@ -1,14 +1,14 @@
 export default interface Instructor {
-  id: string;
+  createdAt?: string;
   email: string;
   firstName: string;
+  id: string;
+  isVerified?: boolean;
   lastName: string;
+  otp?: string;
   password: string;
   phoneNumber?: string;
   profilePic?: string;
-  otp?: string;
-  isVerified?: boolean;
   resume: string;
-  createdAt?: string;
   updatedAt?: string;
 }
