@@ -20,6 +20,8 @@ export default class AuthService {
 
 	private genUUID() {
 		const uuid = uuidv4();
+
+		return uuid
 	}
 
 	public login(user: User, isVerify: string): User | undefined {
@@ -49,6 +51,7 @@ export default class AuthService {
 				error: "There was an error while trying to send email",
 			};
 		}
+
 		try {
 			const uuid = this.genUUID();
 
