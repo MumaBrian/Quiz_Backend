@@ -17,4 +17,23 @@ export default class AuthController {
 	): Promise<any> {
 		return new AuthService().registerParticipant(data);
 	}
+
+  @Post("/verify/participantemail")
+  public async verifyParticipantEmail(
+    @Body() data: { email: string; verification_code: string }
+  ): Promise<any> {
+  	return new AuthService().verifyParticipantEmail(data);
+  }
+
+  //   @Post("/resend/participantotp")
+  //   public async resendParticipantOTP(@Body() email: string): Promise<any> {
+  //   	return new AuthService().resendParticipantOTP(email);
+  //   }
+
+  @Post("/login/participant")
+  public async loginParticipant(
+    @Body() data: { email: string; password: string }
+  ): Promise<any> {
+  	return new AuthService().loginParticipant(data);
+  }
 }

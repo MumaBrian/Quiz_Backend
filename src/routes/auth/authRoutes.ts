@@ -38,5 +38,32 @@ export default class AuthRoutes {
 				res.status(500).send({ error: "unknown Error" });
 			}
 		});
+
+		this.router.post("/verify/participantemail", async (req, res, _next) => {
+			try {
+				const response = await new AuthController().verifyParticipantEmail(
+					req.body
+				);
+				res.status(201).send(response);
+			} catch (e) {
+				console.log(e);
+
+				res.status(500).send({ error: "unknown Error" });
+			}
+		});
+
+		// 
+		
+		this.router.post("/login/participant", async (req, res, _next) => {
+			try {
+				const response = await new AuthController().loginParticipant(
+					req.body
+				);
+
+				res.status(201).send(response);
+			} catch (error) {
+				res.status(500).send({ error: "unknown Error" });
+			}
+		});
 	}
 }
