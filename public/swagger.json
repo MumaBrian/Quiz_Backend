@@ -18,22 +18,52 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"User": {
+			"Participant": {
 				"properties": {
-					"name": {
+					"DOB": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					},
+					"isVerified": {
+						"type": "boolean"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"otp": {
 						"type": "string"
 					},
 					"password": {
 						"type": "string"
 					},
-					"email": {
+					"phoneNumber": {
+						"type": "string"
+					},
+					"profilePic": {
+						"type": "string"
+					},
+					"updatedAt": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"name",
-					"password",
-					"email"
+					"email",
+					"firstName",
+					"id",
+					"lastName",
+					"password"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -83,23 +113,21 @@
 				"parameters": []
 			}
 		},
-		"/api/auth/create-admin": {
+		"/api/auth/register/participant": {
 			"post": {
-				"operationId": "CreateAdmin",
+				"operationId": "RegisterParticipant",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {
-									"type": "string"
-								}
+								"schema": {}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Auth Operation"
+					"Authentication controller Options"
 				],
 				"security": [],
 				"parameters": [],
@@ -108,7 +136,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/User"
+								"$ref": "#/components/schemas/Participant"
 							}
 						}
 					}
