@@ -1,6 +1,8 @@
 import { AuthService } from "../../services";
 import { Participant,User } from "../../types";
-import { Body,Post,Route, Tags } from "tsoa";
+import { Body, Post, Route, Tags } from "tsoa";
+
+export type RegisterParticipantType = Omit<Participant, "otp" | "id" | "isVerified">;
 
 @Route("/api/auth")
 @Tags("Authentication controller Options")
@@ -10,7 +12,9 @@ export default class AuthController {
 	}
 
   @Post("/register/participant")
-	public async registerParticipant(@Body() data: Participant): Promise<any> {
+	public async registerParticipant(
+    @Body() data: RegisterParticipantType
+	): Promise<any> {
 		return new AuthService().registerParticipant(data);
 	}
 }

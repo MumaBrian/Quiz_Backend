@@ -1,8 +1,9 @@
-import {Participant,User } from "../../types";
+import {User } from "../../types";
 import { Mailer } from "../../mail";
 import { firebaseInstance } from "../../firebase";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
+import { RegisterParticipantType } from "@contollers/auth/authController";
 
 export default class AuthService {
 	private db;
@@ -21,7 +22,7 @@ export default class AuthService {
 	private genUUID() {
 		const uuid = uuidv4();
 
-		return uuid
+		return uuid;
 	}
 
 	public login(user: User, isVerify: string): User | undefined {
@@ -42,7 +43,9 @@ export default class AuthService {
 		return false;
 	}
 
-	public async registerParticipant(data: Participant): Promise<any> {
+	public async registerParticipant(
+		data: RegisterParticipantType
+	): Promise<any> {
 		const hashedPassword = await this.hashPassword(data.password);
 		const verMail = await this.mailer.sendOTPMail(data.email);
 

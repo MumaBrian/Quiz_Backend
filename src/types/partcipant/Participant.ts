@@ -3,7 +3,7 @@ export default interface Participant {
   createdAt?: string;
   email: string;
   firstName: string;
-  id: string;
+  id?: string;
   isVerified?: boolean;
   lastName: string;
   otp?: string;
