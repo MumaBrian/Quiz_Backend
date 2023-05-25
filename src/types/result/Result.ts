@@ -1,8 +1,8 @@
 export default interface Result{
-    resultId?:number;
-    quizId?:number;
-    participantId?:number;
+    resultId?:string;
+    quizId?:string;
+    participantId?:string;
     participantName:string;
-    score?:number;
+    score?:string;
     time:string;
 }

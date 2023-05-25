@@ -1,7 +1,7 @@
 export default interface Quiz {
-    quizId?:number;
-    categoryId?:number;
-    instructorId?:number;
+    quizId?:string;
+    categoryId?:string;
+    instructorId?:string;
     name:string;
     description:string;
     createdAt:string;
