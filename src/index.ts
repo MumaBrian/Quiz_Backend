@@ -1,7 +1,5 @@
 import express from "express";
 import { APPCONFIGS } from "./configs";
-import bodyParser from 'body-parser';
-import routes from "./routes";
 import * as swaggerUi from "swagger-ui-express";
 import { firebaseInstance } from "./firebase";
 // import {UtilService} from "./services";

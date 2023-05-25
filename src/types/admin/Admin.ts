@@ -1,9 +1,8 @@
 
-import { firebaseInstance } from "../../firebase";
 
 export default interface Admin {
-  id?: string;
   email: string;
+  id?: string;
   name: string;
   password: string;
 }

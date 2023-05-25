@@ -1,13 +1,13 @@
 export default interface Instructor {
-  id: string;
+  createdAt: string;
   email: string;
   firstName: string;
+  id: string;
   lastname: string;
+  location: string;
   password: string;
   phoneNumber?: string;
   profilePic?: string;
   resume: string;
-  location: string;
-  createdAt: string;
   updatedAt: string;
 }
