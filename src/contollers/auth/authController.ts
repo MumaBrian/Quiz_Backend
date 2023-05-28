@@ -1,8 +1,9 @@
 import { AuthService } from "../../services";
-import { Participant,User } from "../../types";
+import { Instructor,Participant,User } from "../../types";
 import { Body, Post, Route, Tags } from "tsoa";
 
 export type RegisterParticipantType = Omit<Participant, "otp" | "id" | "isVerified">;
+export type RegisterInstructorType = Omit<Instructor,"otp" | "id" | "isVerified">;
 
 @Route("/api/auth")
 @Tags("Authentication controller Options")
@@ -18,22 +19,75 @@ export default class AuthController {
 		return new AuthService().registerParticipant(data);
 	}
 
-  @Post("/verify/participantemail")
+  @Post("/verify/participant-email")
   public async verifyParticipantEmail(
     @Body() data: { email: string; verification_code: string }
   ): Promise<any> {
   	return new AuthService().verifyParticipantEmail(data);
   }
 
-  //   @Post("/resend/participantotp")
-  //   public async resendParticipantOTP(@Body() email: string): Promise<any> {
-  //   	return new AuthService().resendParticipantOTP(email);
-  //   }
+  @Post("/resend/participant-otp")
+  public async resendParticipantOTP(
+    @Body() data: { email: string }
+  ): Promise<any> {
+  	return new AuthService().resendParticipantOTP(data);
+  }
 
   @Post("/login/participant")
   public async loginParticipant(
     @Body() data: { email: string; password: string }
   ): Promise<any> {
   	return new AuthService().loginParticipant(data);
+  }
+
+  @Post("/forgot/participant-password")
+  public async forgotParticipantPassword(
+    @Body() data: { email: string }
+  ): Promise<any> {
+  	return new AuthService().forgotParticipantPassword(data);
+  }
+
+  @Post("/reset/participant-password")
+  public async resetParticipantPassword(
+    @Body()
+    	data: {
+      email: string;
+      password: string;
+    }
+  ): Promise<any> {
+  	return new AuthService().resetParticipantPassword(data);
+  }
+
+  @Post("/update/participant-password")
+  public async updateParticipantPassword(
+    @Body()
+    	data: {
+      currentPassword: string;
+      email: string;
+      newPassword: string;
+    }
+  ): Promise<any> {
+  	return new AuthService().updateParticipantPassword(data);
+  }
+
+  @Post("/register/instructor")
+  public async RegisterInstructor(
+    @Body() data: RegisterInstructorType
+  ): Promise<any> {
+  	return new AuthService().registerInstructor(data);
+  }
+
+  @Post("/verify/instructor-email")
+  public async verifyInstructorEmail(
+    @Body() data: { email: string; verification_code: string }
+  ): Promise<any> {
+  	return new AuthService().verifyInstructorEmail(data);
+  }
+
+  @Post("/login/instructor")
+  public async loginInstructor(
+    @Body() data: { email: string; password: string }
+  ): Promise<any> {
+  	return new AuthService().loginInstructor(data);
   }
 }
