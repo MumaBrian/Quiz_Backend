@@ -164,5 +164,26 @@ export default class AuthRoutes {
 			}
 		});
 
+		this.router.post("/resend/instructor-otp", async (req, res, _next) => {
+			try {
+				const response = await new AuthController().resendInstructorOTP(req.body);
+				res.status(201).send(response);
+			} catch (e) {
+				console.log(e);
+
+				res.status(500).send({ error: "unknown Error" });
+			}
+		});
+		
+		this.router.post("/login/instructor", async (req, res, _next) => {
+			try {
+				const response = await new AuthController().loginInstructor(req.body);
+
+				res.status(201).send(response);
+			} catch (error) {
+				res.status(500).send({ error: "unknown Error" });
+			}
+		});
+
 	}
 }

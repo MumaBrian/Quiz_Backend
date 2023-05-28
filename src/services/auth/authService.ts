@@ -463,6 +463,42 @@ export default class AuthService {
 		}
 	}
 
+	public async resendInstructorOTP(data: { email: string }) {
+		const user: Instructor | undefined = await this.getInstructorByEmail(
+			data.email
+		);
+		if (!user) {
+			return {
+				error: "There is no account in our system with this email",
+			};
+		}
+
+		if (user.isVerified) {
+			return {
+				error: "This account has already been verified",
+			};
+		}
+
+		const sendVerificationCode = await this.mailer.sendOTPMail(data.email);
+
+		if (sendVerificationCode?.emailSent) {
+			user.otp = sendVerificationCode.verCode;
+			const updatedUser = await this.updateInstructor(user);
+			if (!updatedUser) {
+				return {
+					error: "There was an error resending passcode",
+				};
+			}
+			return {
+				user: updatedUser,
+			};
+		} else {
+			return {
+				error: "There was an error sending the verification code",
+			};
+		}
+	}
+
 	public async loginInstructor(data: {
     email: string;
     password: string;

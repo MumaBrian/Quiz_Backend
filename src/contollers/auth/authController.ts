@@ -84,6 +84,13 @@ export default class AuthController {
   	return new AuthService().verifyInstructorEmail(data);
   }
 
+  @Post("/resend/instructor-otp")
+  public async resendInstructorOTP(
+    @Body() data: { email: string }
+  ): Promise<any> {
+  	return new AuthService().resendInstructorOTP(data);
+  }
+
   @Post("/login/instructor")
   public async loginInstructor(
     @Body() data: { email: string; password: string }
