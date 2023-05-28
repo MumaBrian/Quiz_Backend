@@ -97,4 +97,34 @@ export default class AuthController {
   ): Promise<any> {
   	return new AuthService().loginInstructor(data);
   }
+
+  @Post("/forgot/instructor-password")
+  public async forgotInstructorPassword(
+    @Body() data: { email: string }
+  ): Promise<any> {
+  	return new AuthService().forgotInstructorPassword(data);
+  }
+
+  @Post("/reset/instructor-password")
+  public async resetInstructorPassword(
+    @Body()
+    	data: {
+      email: string;
+      password: string;
+    }
+  ): Promise<any> {
+  	return new AuthService().resetInstructorPassword(data);
+  }
+
+  @Post("/update/instructor-password")
+  public async updateInstructorPassword(
+    @Body()
+    	data: {
+      currentPassword: string;
+      email: string;
+      newPassword: string;
+    }
+  ): Promise<any> {
+  	return new AuthService().updateInstructorPassword(data);
+  }
 }

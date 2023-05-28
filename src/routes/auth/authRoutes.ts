@@ -185,5 +185,63 @@ export default class AuthRoutes {
 			}
 		});
 
+		this.router.post("/forgot/instructor-password", async (req, res, next) => {
+			try {
+				const result = await new AuthController().forgotInstructorPassword(
+					req.body
+				);
+
+				if (!result.error) {
+					res.status(200).send({
+						message: `Enter the confirmation code sent to ${req.body.email}`,
+					});
+				} else {
+					res.status(400).send(result);
+				}
+			} catch (error) {
+				console.log(error);
+
+				res.status(500).send({
+					error: error,
+				});
+			}
+		});
+
+		this.router.post("/reset/instructor-password", async (req, res, next) => {
+			try {
+				const response = await new AuthController().resetInstructorPassword(
+					req.body
+				);
+
+				let code = 200;
+
+				if (response.error) {
+					code = 400;
+				}
+
+				res.status(code).send(response);
+			} catch (error) {
+				res.status(500).send({
+					error: "An error occurred while trying to reset your password",
+				});
+			}
+		});
+
+		this.router.post("/update/instructor-password", async (req, res, next) => {
+			try {
+				const data = {
+					currentPassword: req.body.currentPassword,
+					email: req.body.email,
+					newPassword: req.body.newPassword,
+				};
+				const response = await new AuthController().updateInstructorPassword(data);
+				res.status(200).send(response);
+			} catch (error) {
+				res.status(500).send({
+					error: "Error updating password, please try again",
+				});
+			}
+		});
+
 	}
 }

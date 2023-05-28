@@ -522,4 +522,105 @@ export default class AuthService {
 			token: token,
 		};
 	}
+
+	public async forgotInstructorPassword(data: { email: string }) {
+		try {
+			const user = await this.getInstructorByEmail(data.email);
+			if (!user) {
+				throw new Error("Ooops! email not available");
+			}
+
+			user.isVerified = false;
+			const sendToken = await this.mailer.sendOTPMail(data.email);
+
+			let updatedUser: Instructor | undefined;
+
+			if (sendToken?.emailSent) {
+				user.otp = sendToken.verCode;
+				updatedUser = await this.updateInstructor(user);
+			}
+
+			if (!updatedUser) {
+				throw new Error("There was an error sending the password reset token");
+			}
+
+			return {
+				user: updatedUser,
+			};
+		} catch (error) {
+			return {
+				error: error.message,
+			};
+		}
+	}
+
+	public async resetInstructorPassword(data: {
+    email: string;
+    password: string;
+  }) {
+		const user = await this.getInstructorByEmail(data.email);
+		if (!user) {
+			return {
+				error: "There is no account in our system with this email",
+			};
+		}
+
+		const newPasswordHashed = await this.hashPassword(data.password);
+		user.password = newPasswordHashed;
+
+		const token = this.createAuthToken(user.email);
+
+		const updatedUser = await this.updateInstructor(user);
+
+		if (!updatedUser) {
+			return {
+				error: "There was an error resending passcode",
+			};
+		}
+
+		return {
+			user: updatedUser,
+			token: token,
+		};
+	}
+
+	public async updateInstructorPassword(data: {
+    currentPassword: string;
+    email: string;
+    newPassword: string;
+  }) {
+		const { currentPassword, newPassword, email } = data;
+
+		const user: Instructor | undefined = await this.getInstructorByEmail(email);
+
+		if (!user) {
+			return {
+				error: "There is no account in our system with this email",
+			};
+		}
+
+		const equal = bcrypt.compare(user?.password, currentPassword);
+
+		if (!equal) {
+			return "your current password is incorrect";
+		}
+
+		const newPasswordHashed = await this.hashPassword(newPassword);
+		user.password = newPasswordHashed;
+
+		const token = this.createAuthToken(email);
+
+		const updatedUser = await this.updateInstructor(user);
+
+		if (!updatedUser) {
+			return {
+				error: "There was an error resending code",
+			};
+		}
+
+		return {
+			user: updatedUser,
+			token: token,
+		};
+	}
 }
