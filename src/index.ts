@@ -1,8 +1,8 @@
 import express from "express";
 import { APPCONFIGS } from "./configs";
-import routes from "./routes";
 import * as swaggerUi from "swagger-ui-express";
 import { firebaseInstance } from "./firebase";
+// import {UtilService} from "./services";
 
 class Server {
 	public app: express.Application;
@@ -30,8 +30,7 @@ class Server {
 		// 	const user = await new UtilService().getRecord('users', '2sfGGlxqP5gFgAYjcNPq2IQle6D2');
 		// 	res.send(user)
 		// })
-
-		routes(this.app);
+   
 	}
 
 	public start(): void {

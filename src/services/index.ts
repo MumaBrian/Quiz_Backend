@@ -1,4 +1,7 @@
-import { HealthSevice } from "./health";
-import { UtilService } from "./utils";
 
-export { HealthSevice, UtilService };
+import { HealthService } from "./health";
+import { UtilService } from "./utils";
+import { AdminService } from "./admin";
+import { AuthService } from "./auth";
+
+export { HealthService, AuthService,UtilService, AdminService };

@@ -1,2 +1,4 @@
 import { HealthController } from "./health";
-export { HealthController };
+import { AdminController } from "./admin";
+
+export { HealthController,AdminController };

@@ -1,1 +1,1 @@
-export { default as HealthSevice } from "./healthService";
+export { default as HealthService } from "./healthService";

@@ -4,9 +4,10 @@ const serviceAccount = require("./sdk/quiz-app-firebase-adminsdk.json");
 
 class FirebaseSetup {
 	private _app;
+
 	public constructor() {
 		this._app = admin.initializeApp({
-			credential: admin.credential.cert(serviceAccount)
+			credential: admin.credential.cert(serviceAccount),
 		});
 	}
 
@@ -17,6 +18,7 @@ class FirebaseSetup {
 	public init() {
 		console.log("Firebase has been initialised.");
 	}
+
 }
 
-export const firebaseInstance = new FirebaseSetup()
+export const firebaseInstance = new FirebaseSetup();
