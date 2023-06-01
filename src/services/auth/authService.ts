@@ -1,4 +1,4 @@
-import {Admin,Instructor,Participant, User } from "../../types";
+import { Admin, Instructor, Participant, User } from "../../types";
 import { Mailer } from "../../mail";
 import { firebaseInstance } from "../../firebase";
 import bcrypt from "bcrypt";
@@ -7,7 +7,7 @@ import {
 	RegisterAdminType,
 	RegisterInstructorType,
 	RegisterParticipantType,
-} from "../../contollers/auth/authController";
+} from "../../controllers/auth/authController";
 import { APPCONFIGS } from "../../configs";
 import jwt from "jsonwebtoken";
 

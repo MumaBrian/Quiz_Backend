@@ -129,42 +129,42 @@ export default class AuthController {
 
   //Instructor
 
-  @Post("/register/instructor")
+  @Post("/register/host")
   public async RegisterInstructor(
     @Body() data: RegisterInstructorType
   ): Promise<any> {
   	return new AuthService().registerInstructor(data);
   }
 
-  @Post("/verify/instructor-email")
+  @Post("/verify/host-email")
   public async verifyInstructorEmail(
     @Body() data: { email: string; verification_code: string }
   ): Promise<any> {
   	return new AuthService().verifyInstructorEmail(data);
   }
 
-  @Post("/resend/instructor-otp")
+  @Post("/resend/host-otp")
   public async resendInstructorOTP(
     @Body() data: { email: string }
   ): Promise<any> {
   	return new AuthService().resendInstructorOTP(data);
   }
 
-  @Post("/login/instructor")
+  @Post("/login/host")
   public async loginInstructor(
     @Body() data: { email: string; password: string }
   ): Promise<any> {
   	return new AuthService().loginInstructor(data);
   }
 
-  @Post("/forgot/instructor-password")
+  @Post("/forgot/host-password")
   public async forgotInstructorPassword(
     @Body() data: { email: string }
   ): Promise<any> {
   	return new AuthService().forgotInstructorPassword(data);
   }
 
-  @Post("/reset/instructor-password")
+  @Post("/reset/host-password")
   public async resetInstructorPassword(
     @Body()
     	data: {
@@ -175,7 +175,7 @@ export default class AuthController {
   	return new AuthService().resetInstructorPassword(data);
   }
 
-  @Post("/update/instructor-password")
+  @Post("/update/host-password")
   public async updateInstructorPassword(
     @Body()
     	data: {

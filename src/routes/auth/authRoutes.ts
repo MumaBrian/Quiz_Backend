@@ -1,5 +1,5 @@
 import express from "express";
-import { AuthController } from "../../contollers";
+import { AuthController } from "../../controllers";
 
 export default class AuthRoutes {
 	public router: express.Router;
@@ -28,9 +28,7 @@ export default class AuthRoutes {
 		//Admin
 		this.router.post("/register/admin", async (req, res, _next) => {
 			try {
-				const response = await new AuthController().registerAdmin(
-					req.body
-				);
+				const response = await new AuthController().registerAdmin(req.body);
 				res.status(201).send(response);
 			} catch (e) {
 				console.log(e);
@@ -127,8 +125,6 @@ export default class AuthRoutes {
 			}
 		});
 
-
-
 		//Participant
 
 		this.router.post("/register/participant", async (req, res, _next) => {
@@ -169,12 +165,10 @@ export default class AuthRoutes {
 				res.status(500).send({ error: "unknown Error" });
 			}
 		});
-		
+
 		this.router.post("/login/participant", async (req, res, _next) => {
 			try {
-				const response = await new AuthController().loginParticipant(
-					req.body
-				);
+				const response = await new AuthController().loginParticipant(req.body);
 
 				res.status(201).send(response);
 			} catch (error) {
@@ -244,7 +238,7 @@ export default class AuthRoutes {
 
 		//Instructor
 
-		this.router.post("/register/instructor", async (req, res, _next) => {
+		this.router.post("/register/host", async (req, res, _next) => {
 			try {
 				const response = await new AuthController().RegisterInstructor(
 					req.body
@@ -257,7 +251,7 @@ export default class AuthRoutes {
 			}
 		});
 
-		this.router.post("/verify/instructor-email", async (req, res, _next) => {
+		this.router.post("/verify/host-email", async (req, res, _next) => {
 			try {
 				const response = await new AuthController().verifyInstructorEmail(
 					req.body
@@ -270,9 +264,11 @@ export default class AuthRoutes {
 			}
 		});
 
-		this.router.post("/resend/instructor-otp", async (req, res, _next) => {
+		this.router.post("/resend/host-otp", async (req, res, _next) => {
 			try {
-				const response = await new AuthController().resendInstructorOTP(req.body);
+				const response = await new AuthController().resendInstructorOTP(
+					req.body
+				);
 				res.status(201).send(response);
 			} catch (e) {
 				console.log(e);
@@ -280,8 +276,8 @@ export default class AuthRoutes {
 				res.status(500).send({ error: "unknown Error" });
 			}
 		});
-		
-		this.router.post("/login/instructor", async (req, res, _next) => {
+
+		this.router.post("/login/host", async (req, res, _next) => {
 			try {
 				const response = await new AuthController().loginInstructor(req.body);
 
@@ -291,7 +287,7 @@ export default class AuthRoutes {
 			}
 		});
 
-		this.router.post("/forgot/instructor-password", async (req, res, next) => {
+		this.router.post("/forgot/host-password", async (req, res, next) => {
 			try {
 				const result = await new AuthController().forgotInstructorPassword(
 					req.body
@@ -313,7 +309,7 @@ export default class AuthRoutes {
 			}
 		});
 
-		this.router.post("/reset/instructor-password", async (req, res, next) => {
+		this.router.post("/reset/host-password", async (req, res, next) => {
 			try {
 				const response = await new AuthController().resetInstructorPassword(
 					req.body
@@ -333,14 +329,16 @@ export default class AuthRoutes {
 			}
 		});
 
-		this.router.post("/update/instructor-password", async (req, res, next) => {
+		this.router.post("/update/host-password", async (req, res, next) => {
 			try {
 				const data = {
 					currentPassword: req.body.currentPassword,
 					email: req.body.email,
 					newPassword: req.body.newPassword,
 				};
-				const response = await new AuthController().updateInstructorPassword(data);
+				const response = await new AuthController().updateInstructorPassword(
+					data
+				);
 				res.status(200).send(response);
 			} catch (error) {
 				res.status(500).send({
@@ -348,7 +346,6 @@ export default class AuthRoutes {
 				});
 			}
 		});
-
 
 		this.router.post("/register/participant", async (req, res, _next) => {
 			try {
@@ -388,12 +385,10 @@ export default class AuthRoutes {
 				res.status(500).send({ error: "unknown Error" });
 			}
 		});
-		
+
 		this.router.post("/login/participant", async (req, res, _next) => {
 			try {
-				const response = await new AuthController().loginParticipant(
-					req.body
-				);
+				const response = await new AuthController().loginParticipant(req.body);
 
 				res.status(201).send(response);
 			} catch (error) {
@@ -460,7 +455,5 @@ export default class AuthRoutes {
 				});
 			}
 		});
-
-
 	}
 }
