@@ -1,5 +1,5 @@
 import { Health } from "../../types";
-import { HealthController } from "../../contollers";
+import { HealthController } from "../../controllers";
 import express from "express";
 
 // @Route("health")

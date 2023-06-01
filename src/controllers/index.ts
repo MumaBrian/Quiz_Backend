@@ -1,5 +1,6 @@
 import { HealthController } from "./health";
 import { AdminController } from "./admin";
 import { AuthController } from "./auth";
+import { QuizController } from "./quiz";
 
-export { HealthController,AdminController , AuthController};
+export { HealthController,QuizController,AdminController , AuthController};
