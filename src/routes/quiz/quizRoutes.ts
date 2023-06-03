@@ -59,6 +59,26 @@ export default class QuizRoutes {
 			}
 		);
 
+		this.router.put("/update/quiz", async (req, res, _next) => {
+			try {
+				const quizId = req.query.quizId;
+				const updatedData = req.body;
+				console.log("updatedData:", updatedData)
+				console.log("body:",req.body)
+				const result = await new QuizController().updateQuiz(
+					quizId as string,
+					updatedData as any
+				);
+				res.json(result);
+				// res.send()
+			} catch (e) {
+				console.log(e);
+				res.status(500).send({ error: "Failed to update quiz" });
+			}
+		});
+
+
+
 
 		this.router.delete("/delete/record", async (req, res) => {
 			try {
@@ -70,7 +90,7 @@ export default class QuizRoutes {
             documentId as string
 				);
 
-				res.send(record);
+				// res.send(record);
 			} catch (e) {
 				res.status(500).send({ error: "Failed to delete record" });
 			}
@@ -79,3 +99,11 @@ export default class QuizRoutes {
 
 	}
 }
+
+
+
+
+
+
+
+

@@ -27,15 +27,21 @@ export default class UtilService {
 		collectionName: string,
 		documentId: string,
 		newData: any
-	) {
-		await this._firestoreDb
+	): Promise<any> {
+		const recordRef = this._firestoreDb
 			.collection(collectionName)
-			.doc(documentId)
-			.update(newData);
+			.doc(documentId);
 
-		const updatedRecord = (
-			await this._firestoreDb.collection(collectionName).doc(documentId).get()
-		).data();
+		const currentData = (await recordRef.get()).data();
+
+		const updatedData = {
+			...currentData,
+			...newData,
+		};
+
+		await recordRef.update(updatedData);
+
+		const updatedRecord = (await recordRef.get()).data();
 
 		return updatedRecord;
 	}
