@@ -127,6 +127,18 @@
 			"RegisterInstructorType": {
 				"$ref": "#/components/schemas/Omit_Instructor.otp-or-id-or-isVerified_"
 			},
+			"Health": {
+				"properties": {
+					"msg": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"msg"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
 			"Question": {
 				"properties": {
 					"answerA": {
@@ -183,17 +195,28 @@
 			"CreateQuizType": {
 				"$ref": "#/components/schemas/Omit_Quiz.id_"
 			},
-			"Health": {
+			"Pick_Category.Exclude_keyofCategory.id__": {
 				"properties": {
-					"msg": {
+					"description": {
+						"type": "string"
+					},
+					"title": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"msg"
+					"description",
+					"title"
 				],
 				"type": "object",
-				"additionalProperties": true
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_Category.id_": {
+				"$ref": "#/components/schemas/Pick_Category.Exclude_keyofCategory.id__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"CreateCategoryType": {
+				"$ref": "#/components/schemas/Omit_Category.id_"
 			}
 		},
 		"securitySchemes": {}
@@ -1044,6 +1067,36 @@
 				}
 			}
 		},
+		"/api/health": {
+			"get": {
+				"operationId": "GetHealth",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Health"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"msg": "pong"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": "Test if API is available",
+				"tags": [
+					"Health Controller Operations"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/api/quiz/create/quiz": {
 			"post": {
 				"operationId": "CreateQuiz",
@@ -1074,7 +1127,7 @@
 				}
 			}
 		},
-		"/api/quiz/get/collection": {
+		"/api/quiz/get/quiz-collection": {
 			"get": {
 				"operationId": "GetAllRecords",
 				"responses": {
@@ -1106,7 +1159,7 @@
 				]
 			}
 		},
-		"/api/quiz/get/record": {
+		"/api/quiz/get/quiz-record": {
 			"get": {
 				"operationId": "GetRecord",
 				"responses": {
@@ -1143,7 +1196,7 @@
 				]
 			}
 		},
-		"/api/quiz/delete/record": {
+		"/api/quiz/delete/quiz-record": {
 			"delete": {
 				"operationId": "DeleteRecord",
 				"responses": {
@@ -1180,7 +1233,7 @@
 				]
 			}
 		},
-		"/api/quiz/update/quiz": {
+		"/api/quiz/update/quiz-record": {
 			"put": {
 				"operationId": "UpdateQuiz",
 				"responses": {
@@ -1219,34 +1272,179 @@
 				}
 			}
 		},
-		"/api/health": {
+		"/api/category/create/category": {
+			"post": {
+				"operationId": "CreateCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Category Creation controller Options"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateCategoryType"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/category/get/category-collection": {
 			"get": {
-				"operationId": "GetHealth",
+				"operationId": "GetAllRecords",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Health"
-								},
-								"examples": {
-									"Example 1": {
-										"value": {
-											"msg": "pong"
-										}
-									}
+									"items": {},
+									"type": "array"
 								}
 							}
 						}
 					}
 				},
-				"description": "Test if API is available",
 				"tags": [
-					"Health Controller Operations"
+					"Category Creation controller Options"
 				],
 				"security": [],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "query",
+						"name": "collectionName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/api/category/get/category-record": {
+			"get": {
+				"operationId": "GetRecord",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Category Creation controller Options"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "collectionName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "documentId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/api/category/delete/category-record": {
+			"delete": {
+				"operationId": "DeleteRecord",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Category Creation controller Options"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "collectionName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "documentId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/api/category/update/category-record": {
+			"put": {
+				"operationId": "UpdateCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Category Creation controller Options"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "CategoryId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateCategoryType"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

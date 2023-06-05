@@ -1,7 +1,6 @@
 import { firebaseInstance } from "../../firebase";
-import  {CreateQuestionType}  from "../../controllers/quiz/quizController";
 // import  {CreateQuizType}  from "../../controllers/quiz/quizController";
-import otpGenerator from "otp-generator";
+import { v4 as uuidv4 } from "uuid";
 import { Quiz } from "../../types";
 
 export default class QuizService {
@@ -12,14 +11,11 @@ export default class QuizService {
 	}
 
 	private genUUID() {
-		const uuid = otpGenerator.generate(32, {
-			upperCaseAlphabets: true,
-			specialChars: false,
-			lowerCaseAlphabets: true,
-		});
+		const uuid = uuidv4();
 
 		return uuid;
 	}
+
 
 	public async createQuiz(data: Quiz): Promise<any> {
 		try {
@@ -43,30 +39,6 @@ export default class QuizService {
 		}
 	}
 
-	public async createQuestion(data: CreateQuestionType): Promise<any> {
-		try {
-			const uuid = this.genUUID();
-
-			const question = {
-				id: uuid,
-				answerA: data.answerA,
-				answerB: data.answerB,
-				answerC: data.answerC,
-				answerD: data.answerD,
-				correctAnswer: data?.correctAnswer,
-				question: data.question,
-			};
-
-			const questions = this.db.collection("questions");
-			const docRef = questions.doc(uuid);
-			const result = await docRef.set(question);
-			return result;
-		} catch (error) {
-			return {
-				error: "Please enter the required information",
-			};
-		}
-	}
 
 	public async updateQuiz(quizId: string, updatedData: Quiz): Promise<any> {
 		try {
