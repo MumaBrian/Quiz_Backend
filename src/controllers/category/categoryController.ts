@@ -1,19 +1,18 @@
-import { QuizService } from "../../services";
-import { Question, Quiz } from "../../types";
-import { Body, Delete,Get,Post,Put,Query, Route,Tags } from "tsoa";
-export type CreateQuizType = Omit<Quiz, "id" >;
-export type CreateQuestionType = Omit<Question, "quizId" | "id">;
-import {UtilService} from "../../services"
+import { CategoryService } from "../../services";
+import { Category } from "../../types";
+import { Body, Delete, Get, Post, Put, Query, Route, Tags } from "tsoa";
+export type CreateCategoryType = Omit<Category, "id">;
+import { UtilService } from "../../services";
 
-@Route("/api/quiz")
-@Tags("Quiz Creation controller Options")
-export default class QuizController {
-  @Post("/create/quiz")
-	public async createQuiz(@Body() data: CreateQuizType): Promise<any> {
-		return new QuizService().createQuiz(data);
+@Route("/api/category")
+@Tags("Category Creation controller Options")
+export default class CategoryController {
+  @Post("/create/category")
+	public async createCategory(@Body() data: CreateCategoryType): Promise<any> {
+		return new CategoryService().createCategory(data);
 	}
 
-  @Get("/get/quiz-collection")
+  @Get("/get/category-collection")
   public async getAllRecords(@Query() collectionName: string): Promise<any[]> {
   	try {
   		const records = await new UtilService().getCollection(collectionName);
@@ -23,7 +22,7 @@ export default class QuizController {
   	}
   }
 
-  @Get("/get/quiz-record")
+  @Get("/get/category-record")
   public async getRecord(
     @Query("collectionName") collectionName: string,
     @Query("documentId") documentId: string
@@ -39,7 +38,7 @@ export default class QuizController {
   	}
   }
 
-  @Delete("/delete/quiz-record")
+  @Delete("/delete/category-record")
   public async deleteRecord(
     @Query("collectionName") collectionName: string,
     @Query("documentId") documentId: string
@@ -55,16 +54,15 @@ export default class QuizController {
   	}
   }
 
-  @Put("/update/quiz-record")
-  public async updateQuiz(
-    @Query("quizId") quizId: string,
-    @Body() updatedData: CreateQuizType
+  @Put("/update/category-record")
+  public async updateCategory(
+    @Query("CategoryId") CategoryId: string,
+    @Body() updatedData: CreateCategoryType
   ): Promise<any> {
-  	return new QuizService().updateQuiz(quizId, updatedData);
+  	return new CategoryService().updateCategory(CategoryId, updatedData);
   }
   catch(e) {
   	console.log(e);
-  	throw new Error("Failed to update quiz");
+  	throw new Error("Failed to update category");
   }
 }
-	

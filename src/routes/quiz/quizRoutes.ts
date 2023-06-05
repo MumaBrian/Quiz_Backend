@@ -25,7 +25,7 @@ export default class QuizRoutes {
     
 		
 
-		this.router.get("/get/collection", async (req, res) => {
+		this.router.get("/get/quiz-collection", async (req, res) => {
 			try {
 				const collectionName=req.query.collectionName
 				const records = await new QuizController().getAllRecords(collectionName as string);
@@ -40,7 +40,7 @@ export default class QuizRoutes {
 		})
 
 		
-		this.router.get("/get/record",
+		this.router.get("/get/quiz-record",
 			async (req, res) => {
 
 				try {
@@ -59,7 +59,7 @@ export default class QuizRoutes {
 			}
 		);
 
-		this.router.put("/update/quiz", async (req, res, _next) => {
+		this.router.put("/update/quiz-record", async (req, res, _next) => {
 			try {
 				const quizId = req.query.quizId;
 				const updatedData = req.body;
@@ -80,7 +80,7 @@ export default class QuizRoutes {
 
 
 
-		this.router.delete("/delete/record", async (req, res) => {
+		this.router.delete("/delete/quiz-record", async (req, res) => {
 			try {
 				const collectionName = req.query.collectionName;
 				const documentId = req.query.documentId;
