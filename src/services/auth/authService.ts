@@ -11,6 +11,8 @@ import {
 import { APPCONFIGS } from "../../configs";
 import jwt from "jsonwebtoken";
 
+// import { AuthorizationService } from "../../authorization";
+
 export default class AuthService {
 	private db;
 	private mailer;
@@ -404,12 +406,27 @@ export default class AuthService {
 				createdAt: data.createdAt,
 				updatedAt: data.updatedAt,
 				id: uuid,
+		
 			};
 
 			const instructors = this.db.collection("instructors");
 			const docRef = instructors.doc(uuid);
 
 			const result = await docRef.set(instructor);
+
+			// Associate the instructor with quizzes
+			const quizzes = this.db.collection("quizzes");
+			const instructorQuizzes = await quizzes
+				.where("uuid", "==", "")
+				.get(); // Query for quizzes without an instructorId
+
+			const batch = this.db.batch();
+			instructorQuizzes.forEach((quizDoc) => {
+				const quizRef = quizzes.doc(quizDoc.id);
+				batch.update(quizRef, { instructorId: uuid });
+			});
+
+			await batch.commit();
 
 			console.log(result);
 
@@ -458,6 +475,11 @@ export default class AuthService {
 		if (equal) {
 			user.isVerified = true;
 			const updateUser = await this.updateInstructor(user);
+
+			// Approve the instructor account
+
+			// const authorizationService = new AuthorizationService();
+			// await authorizationService.approveInstructorAccount(user.email);
 
 			return {
 				user: updateUser,

@@ -170,8 +170,11 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"Pick_Quiz.Exclude_keyofQuiz.id__": {
+			"Pick_Quiz.Exclude_keyofQuiz.id-or-instructorId__": {
 				"properties": {
+					"categoryId": {
+						"type": "string"
+					},
 					"description": {
 						"type": "string"
 					},
@@ -188,12 +191,12 @@
 				"type": "object",
 				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"Omit_Quiz.id_": {
-				"$ref": "#/components/schemas/Pick_Quiz.Exclude_keyofQuiz.id__",
+			"Omit_Quiz.id-or-instructorId_": {
+				"$ref": "#/components/schemas/Pick_Quiz.Exclude_keyofQuiz.id-or-instructorId__",
 				"description": "Construct a type with the properties of T except for those in type K."
 			},
 			"CreateQuizType": {
-				"$ref": "#/components/schemas/Omit_Quiz.id_"
+				"$ref": "#/components/schemas/Omit_Quiz.id-or-instructorId_"
 			},
 			"Pick_Category.Exclude_keyofCategory.id__": {
 				"properties": {
@@ -217,6 +220,37 @@
 			},
 			"CreateCategoryType": {
 				"$ref": "#/components/schemas/Omit_Category.id_"
+			},
+			"Pick_Result.Exclude_keyofResult.id-or-quizId__": {
+				"properties": {
+					"score": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_Result.id-or-quizId_": {
+				"$ref": "#/components/schemas/Pick_Result.Exclude_keyofResult.id-or-quizId__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"CreateResultType": {
+				"$ref": "#/components/schemas/Omit_Result.id-or-quizId_"
+			},
+			"Result": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"quizId": {
+						"type": "string"
+					},
+					"score": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": true
 			}
 		},
 		"securitySchemes": {}
@@ -1445,6 +1479,72 @@
 						}
 					}
 				}
+			}
+		},
+		"/api/result/result": {
+			"post": {
+				"operationId": "CreateResult",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Result Creation controller Option"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateResultType"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/result/pdf-download": {
+			"get": {
+				"operationId": "GetResult",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Result"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Result Creation controller Option"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},
