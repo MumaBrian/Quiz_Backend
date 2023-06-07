@@ -3,6 +3,8 @@ import { firebaseInstance } from "../../firebase";
 import { v4 as uuidv4 } from "uuid";
 import { Quiz } from "../../types";
 import { UtilService } from "../../services";
+import { CreateQuizType } from "../../controllers/quiz/quizController";
+
 export default class QuizService {
 	private db;
 
@@ -16,21 +18,12 @@ export default class QuizService {
 		return uuid;
 	}
 
-	public async createQuiz(data: Quiz): Promise<any> {
+	public async createQuiz(data: CreateQuizType): Promise<any> {
 		try {
 			const authorizationService = new UtilService();
 			const uuid = this.genUUID();
 			const instructorId = uuidv4();
 			const categoryId = uuidv4();
-
-			const isInstructorApproved = await authorizationService.isInstructorApproved(
-				instructorId
-			);
-			if (!isInstructorApproved) {
-				return {
-					error: "Instructor account not approved",
-				};
-			}
 
 			const quiz = {
 				id: uuid,

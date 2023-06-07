@@ -1,7 +1,7 @@
 import { QuizService } from "../../services";
 import { Quiz } from "../../types";
 import { Body, Delete,Get,Post,Put,Query, Route,Tags } from "tsoa";
-export type CreateQuizType = Omit<Quiz, "id"| "instructorId" >;
+export type CreateQuizType = Omit<Quiz, "id"| "instructorId"|"categoryId" >;
 import {UtilService} from "../../services"
 
 @Route("/api/quiz")
