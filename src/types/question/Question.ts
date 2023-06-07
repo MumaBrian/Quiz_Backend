@@ -4,7 +4,6 @@ export default interface Question{
     answerC:string;
     answerD:string;
     correctAnswer?:string;
-    // id?:string;
     question:string;
-    // quizId?:string;
+  
 }

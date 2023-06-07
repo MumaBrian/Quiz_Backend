@@ -50,4 +50,24 @@ export default class UtilService {
 	public async deleteRecord(collectionName: string, documentId: string) {
 		await this._firestoreDb.collection(collectionName).doc(documentId).delete();
 	}
+
+	
+	public async isInstructorApproved(instructorId: string): Promise<boolean> {
+		try {
+			const instructors = await this._firestoreDb.collection(
+				"instructors" );
+			const docRef = instructors.doc(instructorId);
+			const snapshot = await docRef.get();
+
+			if (snapshot.exists) {
+				const instructorData = snapshot.data();
+				return instructorData.approved === true;
+			}
+
+			return false;
+		} catch (error) {
+			console.log(error);
+			return false;
+		}
+	}
 }

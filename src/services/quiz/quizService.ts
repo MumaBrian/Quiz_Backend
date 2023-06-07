@@ -2,6 +2,8 @@ import { firebaseInstance } from "../../firebase";
 // import  {CreateQuizType}  from "../../controllers/quiz/quizController";
 import { v4 as uuidv4 } from "uuid";
 import { Quiz } from "../../types";
+import { UtilService } from "../../services";
+import { CreateQuizType } from "../../controllers/quiz/quizController";
 
 export default class QuizService {
 	private db;
@@ -16,16 +18,20 @@ export default class QuizService {
 		return uuid;
 	}
 
-
-	public async createQuiz(data: Quiz): Promise<any> {
+	public async createQuiz(data: CreateQuizType): Promise<any> {
 		try {
+			const authorizationService = new UtilService();
 			const uuid = this.genUUID();
+			const instructorId = uuidv4();
+			const categoryId = uuidv4();
 
 			const quiz = {
 				id: uuid,
 				title: data.title,
 				description: data.description,
 				questions: data.questions,
+				instructorId: instructorId,
+				categoryId: categoryId,
 			};
 
 			const quizzes = this.db.collection("quizzes");
@@ -39,12 +45,11 @@ export default class QuizService {
 		}
 	}
 
-
 	public async updateQuiz(quizId: string, updatedData: Quiz): Promise<any> {
 		try {
 			const quizzes = this.db.collection("quizzes");
 			const docRef = quizzes.doc(quizId);
-			console.log(docRef)
+			console.log(docRef);
 			console.log("quizId:", quizId);
 
 			// Retrieve the existing quiz from the database
@@ -56,13 +61,13 @@ export default class QuizService {
 			}
 
 			// Make the necessary changes to the quiz
-			const existingQuiz = doc.data() //as Quiz;
+			const existingQuiz = doc.data(); //as Quiz;
 			const updatedQuiz: Quiz = {
 				...existingQuiz,
 				...updatedData,
 			};
-			console.log("update:",updatedQuiz)
-			console.log("data:",updatedData)
+			console.log("update:", updatedQuiz);
+			console.log("data:", updatedData);
 			// Update the quiz in the database
 			const result = await docRef.update(updatedQuiz);
 
